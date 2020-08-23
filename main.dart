@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -22,40 +24,25 @@ class Demo extends StatefulWidget {
 }
 
 class DemoState extends State<Demo> {
-  DateTime dateTime;
-  void exitButton() {
-    DateTime currentTime = DateTime.now();
-
-    bool backPressTimeTaken = dateTime == null ||
-        currentTime.difference(dateTime) > Duration(seconds: 2);
-
-    if (backPressTimeTaken) {
-      dateTime = currentTime;
-    } else {
-      SystemNavigator.pop();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        exitButton();
+        SystemNavigator.pop();
         return Future.value(false);
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text('Exit Button'),
         ),
-        body: Container(
-          child: Center(
-            child: RaisedButton(
-              child: Text('Exit'),
-              onPressed: () {
-                // SystemNavigator.pop();
-                // exitButton();
-              },
-            ),
+        body: Center(
+          child: RaisedButton(
+            onPressed: () {
+              SystemNavigator.pop();
+
+              // exit(0);
+            },
+            child: Text('Exit Buton'),
           ),
         ),
       ),
